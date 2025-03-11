@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="srv/SourceLink.props" Condition="'$(DisableSourceLink)' == ''"/>
+  
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
   <PropertyGroup>
 
