@@ -7,6 +7,9 @@
       <Nullable>enable</Nullable>
 	  <RootNamespace>Lavalink4NET</RootNamespace>
 
+	  <!--There is no symbols in this project, https://github.com/NuGet/Home/issues/10372 -->
+	  <IncludeSymbols>false</IncludeSymbols>
+
 	  <Description>
 		  High performance Lavalink wrapper for .NET | General abstractions and common primitives for the Lavalink4NET client library.
 	  </Description>
