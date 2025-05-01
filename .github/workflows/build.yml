@@ -81,9 +81,11 @@ jobs:
       uses: actions/upload-artifact@v4.6.1
       with:
         name: NuGet Packages-${{ matrix.configuration }}
-        path: '**/*.nupkg'
+        path: |
+          '**/*.nupkg'
+          '**/*.snupkg'
 
     - name: Publish NuGet Packages
       if: matrix.configuration == 'Release'
-      run: find . -type f -name "*.nupkg" -exec dotnet nuget push --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate {} ';'
+      run: find . -type f -name "*.nupkg" -o -name "*.snupkg" -exec dotnet nuget push --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate {} ';'
       shell: bash
