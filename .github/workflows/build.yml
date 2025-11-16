@@ -91,7 +91,7 @@ jobs:
           '**/*.snupkg'
 
     - name: Publish NuGet Packages
-      if: matrix.configuration == 'Release'
+      if: matrix.configuration == 'Release' && github.ref == 'refs/heads/dev'
       run: |
           dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
           dotnet nuget push "**/*.snupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || true
