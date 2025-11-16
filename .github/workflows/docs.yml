@@ -37,3 +37,12 @@ jobs:
       with:
         name: Documentation
         path: docs/build/
+
+    - name: Deploy
+      uses: cloudflare/wrangler-action@v3
+      if: github.ref == 'refs/heads/dev'
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_PAGES_API_KEY }}
+        accountId: ${{ secrets.CLOUDFLARE_PAGES_ACCOUNT_ID }}
+        command: pages deploy docs/build/ --project-name=lavalink4net
+        gitHubToken: ${{ secrets.GITHUB_TOKEN }}
