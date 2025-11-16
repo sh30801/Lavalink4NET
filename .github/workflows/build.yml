@@ -41,7 +41,7 @@ jobs:
     - name: Download artifact
       id: download-artifact
       if: github.event_name == 'pull_request' && matrix.configuration == 'Release'
-      uses: dawidd6/action-download-artifact@v2
+      uses: dawidd6/action-download-artifact@v6
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         commit: ${{github.event.pull_request.base.sha}}
