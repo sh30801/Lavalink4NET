@@ -86,11 +86,11 @@ jobs:
       with:
         name: NuGet Packages-${{ matrix.configuration }}
         path: |
-          'artifacts/package/${{ toLower(matrix.configuration) }}/*.nupkg'
-          'artifacts/package/${{ toLower(matrix.configuration) }}/*.snupkg'
+          artifacts/package/${{ matrix.configuration == 'Release' && 'release' || 'debug' }}/*.nupkg
+          artifacts/package/${{ matrix.configuration == 'Release' && 'release' || 'debug' }}/*.snupkg
 
     - name: Publish NuGet Packages
       if: matrix.configuration == 'Release' && github.ref == 'refs/heads/dev'
       run: |
-          dotnet nuget push "artifacts/package/${{ toLower(matrix.configuration) }}/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-          dotnet nuget push "artifacts/package/${{ toLower(matrix.configuration) }}/*.snupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || true
+          dotnet nuget push "artifacts/package/${{ matrix.configuration == 'Release' && 'release' || 'debug' }}/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "artifacts/package/${{ matrix.configuration == 'Release' && 'release' || 'debug' }}/*.snupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || true
