@@ -83,15 +83,14 @@ jobs:
 
     - name: Upload NuGet artifacts
       uses: actions/upload-artifact@v4.6.1
-      if: matrix.configuration == 'Release'
       with:
         name: NuGet Packages-${{ matrix.configuration }}
         path: |
-          '**/*.nupkg'
-          '**/*.snupkg'
+          'artifacts/package/${{ matrix.configuration | toLower }}/*.nupkg'
+          'artifacts/package/${{ matrix.configuration | toLower }}/*.snupkg'
 
     - name: Publish NuGet Packages
       if: matrix.configuration == 'Release' && github.ref == 'refs/heads/dev'
       run: |
-          dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-          dotnet nuget push "**/*.snupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || true
+          dotnet nuget push "artifacts/package/${{ matrix.configuration | toLower }}/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "artifacts/package/${{ matrix.configuration | toLower }}/*.snupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || true
