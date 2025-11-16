@@ -15,9 +15,11 @@ internal class PlayerManagerMock : IPlayerManager
 {
     private readonly IReadOnlyDictionary<ulong, ILavalinkPlayer> _players;
 
+#pragma warning disable CS0067
     public event AsyncEventHandler<PlayerCreatedEventArgs>? PlayerCreated;
     public event AsyncEventHandler<PlayerDestroyedEventArgs>? PlayerDestroyed;
     public event AsyncEventHandler<PlayerStateChangedEventArgs>? PlayerStateChanged;
+#pragma warning restore CS0067
 
     public PlayerManagerMock(IDiscordClientWrapper discordClient, IEnumerable<ILavalinkPlayer> players)
     {
